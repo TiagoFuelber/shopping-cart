@@ -6,7 +6,6 @@ import StyledBasePage from '../ui/styles/StyledBasePage';
 import Container from '../ui/Container';
 import Header from '../ui/header/Header';
 import CartItem from './CartItem';
-import NoStyleRouterLink from '../ui/NoStyleRouterLink';
 import getCartTotalPrice from '../../application/getCartTotalPrice';
 import toReais from '../../services/toReais';
 import StyledCartTotal from './StyledCartTotal';
@@ -19,10 +18,10 @@ import * as cartActions from '../../state/cart/actionCreators';
 const EmptyCartMessage = () =>
   (
     <p>
-    Your cart is empty!
-      <NoStyleRouterLink to="/">
+    Your cart is empty!{' '}
+      <Link to="/">
         <span>Go to products Page.</span>
-      </NoStyleRouterLink>
+      </Link>
     </p>
   );
 
