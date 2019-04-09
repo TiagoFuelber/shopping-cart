@@ -4,7 +4,7 @@
   "description": "A shopping cart example",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require png:./mochacfg.js tests/**/*.spec.js --require @babel/register",
+    "test": "./node_modules/.bin/mocha --require ./testNullCompiler.js tests/**/*.spec.js --require @babel/register",
     "test:tdd": "./node_modules/.bin/mocha --require ./testNullCompiler.js tests/**/*.spec.js --require @babel/register --watch",
     "test:coverage": "nyc npm test",
     "start": "node_modules/.bin/webpack-dev-server --open --config webpack.dev.js --hot",
