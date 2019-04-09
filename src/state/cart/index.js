@@ -23,6 +23,12 @@ export const cartReducer = (state = initialState, action) => {
           ({ ...item }))
       };
 
+    case CART.CLEAR_CART:
+      return {
+        items: state.items.map(item =>
+          ({ ...item }))
+      };
+
     default:
       return state;
   }
