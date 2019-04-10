@@ -10,7 +10,6 @@ export const endTimer = (dispatch, onEndTime) =>
 export const decreaseTimer = (dispatch, onEndTime) =>
   () => {
     if (store.getState().timer.remainingTime === 0) {
-      clearInterval(store.getState().timer.interval);
       endTimer(dispatch, onEndTime)();
       return;
     }
@@ -23,6 +22,8 @@ export const startTimer = (dispatch, onEndTime) =>
     const interval = setInterval(() => {
       decreaseTimer(dispatch, onEndTime)();
     }, 1000);
+
+    clearInterval(store.getState().timer.interval);
 
     dispatch({ type: TIMER.START_TIMER, interval });
   };

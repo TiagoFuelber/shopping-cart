@@ -1,23 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StyledCartItem from './StyledCartItem';
 import * as cartActions from '../../state/cart/actionCreators';
+import Modal from '../ui/modal/Modal';
+import Button from '../ui/buttons/Button';
+import StyledConfirmModal from './StyledConfirmModal';
 
-const CartItem = ({
-  item, removeItem, decreaseQuantity, increaseQuantity
-}) =>
-  (
-    <StyledCartItem>
-      <div className="quantity-container">
-        <FontAwesomeIcon icon="minus-square" onClick={decreaseQuantity(item)} />
-        <span className="quantity">{item.quantity}</span>
-        <FontAwesomeIcon icon="plus-square" onClick={increaseQuantity(item)} />
-        <span className="description">{item.name}</span>
-      </div>
-      <FontAwesomeIcon icon="trash" onClick={removeItem(item)} />
-    </StyledCartItem>
-  );
+class CartItem extends Component {
+  state = {
+    modalDeleteLastItemConfirmIsOpen: false
+  };
+
+  handleDecrease = item =>
+    () => {
+      const { decreaseQuantity, cart } = this.props;
+
+      if (item.quantity === 1 && cart.items.length === 1) {
+        this.setState({ modalDeleteLastItemConfirmIsOpen: true });
+        return;
+      }
+
+      decreaseQuantity(item)();
+    };
+
+  closeModal = () =>
+    this.setState({ modalDeleteLastItemConfirmIsOpen: false });
+
+  confirmModal = () => {
+    const { history, decreaseQuantity, item } = this.props;
+    this.closeModal();
+    decreaseQuantity(item)();
+    history.push('/');
+  };
+
+  render() {
+    const { item, removeItem, increaseQuantity } = this.props;
+    const { modalDeleteLastItemConfirmIsOpen } = this.state;
+
+    return (
+      <StyledCartItem>
+        <div className="quantity-container">
+          <FontAwesomeIcon icon="minus-square" onClick={this.handleDecrease(item)} />
+          <span className="quantity">{item.quantity}</span>
+          <FontAwesomeIcon icon="plus-square" onClick={increaseQuantity(item)} />
+          <span className="description">{item.name}</span>
+        </div>
+        <FontAwesomeIcon icon="trash" onClick={removeItem(item)} />
+        {modalDeleteLastItemConfirmIsOpen && (
+          <Modal onClose={this.closeModal}>
+            <StyledConfirmModal>
+              <h2>Do you really want to delete the last item?</h2>
+              <div className="buttons">
+                <Button onClick={this.closeModal}>No</Button>
+                <Button secondary onClick={this.confirmModal}>
+                  Yes
+                </Button>
+              </div>
+            </StyledConfirmModal>
+          </Modal>
+        )}
+      </StyledCartItem>
+    );
+  }
+}
+
+const mapStateToProps = ({ cart }) =>
+  ({ cart });
 
 const mapDispatchToProps = dispatch =>
   ({
@@ -27,6 +76,6 @@ const mapDispatchToProps = dispatch =>
   });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CartItem);

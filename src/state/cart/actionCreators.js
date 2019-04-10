@@ -1,6 +1,7 @@
 import container from '../../container';
 import { CART } from '../actionTypes';
 import store from '../store';
+import * as timerActions from '../timer/actionCreators';
 
 export const addItemToCart = dispatch =>
   (item, cart) =>
@@ -17,6 +18,7 @@ export const clearCart = dispatch =>
     dispatch({
       type: CART.CLEAR_CART
     });
+    timerActions.endTimer(dispatch)();
   };
 
 export const removeItemFromCart = dispatch =>

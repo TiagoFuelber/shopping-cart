@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { LightRed } from './constants';
+import { LightRed, Blue } from './constants';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
 
   .red {
     color: ${LightRed};
+  }
+
+  a {
+    color: ${Blue};
   }
 `;
 

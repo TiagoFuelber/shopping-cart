@@ -16,7 +16,7 @@ export const timerReducer = (state = initialState, action) => {
       return { ...state, remainingTime: state.remainingTime - 1 };
 
     case TIMER.END_TIMER:
-      return { ...state, remainingTime: null, interval: null };
+      return { remainingTime: null, interval: null };
 
     default:
       return state;

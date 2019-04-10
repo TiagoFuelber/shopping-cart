@@ -44,7 +44,7 @@ class CartPage extends Component {
   }
 
   render() {
-    const { cart } = this.props;
+    const { cart, history } = this.props;
     const { successModalIsOpen } = this.state;
 
     return (
@@ -55,7 +55,7 @@ class CartPage extends Component {
             <h1>Checkout Page</h1>
             {cart.items.length ? (
               cart.items.map(item =>
-                <CartItem key={item.id} item={item} />)
+                <CartItem key={item.id} item={item} history={history} />)
             ) : (
               <EmptyCartMessage />
             )}
