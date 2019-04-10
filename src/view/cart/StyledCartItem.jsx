@@ -7,6 +7,7 @@ export default Styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  user-select: none;
 
   .svg-inline--fa {
     color: ${Blue};
