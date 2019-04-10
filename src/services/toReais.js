@@ -1,2 +1,2 @@
 export default price =>
-  Number(price).toLocaleString('pr-BR', { style: 'currency', currency: 'BRL' });
+  Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });

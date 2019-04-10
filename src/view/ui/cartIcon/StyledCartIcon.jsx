@@ -1,5 +1,6 @@
 import Styled from 'styled-components';
 import { Blue } from '../styles/constants';
+import StyledCartSummary from './StyledCartSummary';
 
 export default Styled.div`
   position: relative;
@@ -25,5 +26,15 @@ export default Styled.div`
 
   &:hover {
     cursor: pointer;
+  }
+
+  ${StyledCartSummary} {
+    position: absolute;
+    right: 50%;
+    display: none;
+  }
+
+  &:hover ${StyledCartSummary} {
+    display: block;
   }
 `;
