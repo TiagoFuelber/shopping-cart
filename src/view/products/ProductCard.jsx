@@ -1,13 +1,14 @@
 import React from 'react';
 import StyledProductCard from './StyledProductCard';
 import Button from '../ui/buttons/Button';
+import toReais from '../../services/toReais';
 
 const ProductCard = ({ product, onAddToCart }) =>
   (
     <StyledProductCard>
       <img src={product.image} alt={product.name} />
       <div className="description">{product.description}</div>
-      <div className="price">{product.price}</div>
+      <div className="price">{toReais(product.price)}</div>
       <Button type="button" onClick={onAddToCart}>
       Add to cart
       </Button>
