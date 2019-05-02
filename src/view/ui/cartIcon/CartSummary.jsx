@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StyledCartSummary from './StyledCartSummary';
-import Cart from '../../../domain/Cart';
+import { Cart } from '../../../domain';
 
 const CartSumary = ({ cart }) =>
   (

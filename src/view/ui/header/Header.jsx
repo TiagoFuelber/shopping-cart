@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import StyledHeader from './StyledHeader';
 import CartIcon from '../cartIcon/CartIcon';
 import NoStyleRouterLink from '../NoStyleRouterLink';
-import secondsToMinutes from '../../../services/TimeService';
-import Cart from '../../../domain/Cart';
+import { TimeService } from '../../../services';
+import { Cart } from '../../../domain';
 
 const Header = ({ cart, timer }) =>
   (
@@ -16,7 +16,7 @@ const Header = ({ cart, timer }) =>
       {cart.items.length ? (
         <div>
         Your cart will expire in:
-          {` ${secondsToMinutes(timer.remainingTime)}`}
+          {` ${TimeService.secondsToMinutes(timer.remainingTime)}`}
         </div>
       ) : null}
       <NoStyleRouterLink to="/my-cart">

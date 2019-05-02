@@ -11,10 +11,8 @@ import {
   faTimes,
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
-import GlobalStyle from './view/ui/styles/GlobalStyle';
-import ProductsPage from './view/products/ProductsPage';
-import store from './state/store';
-import CartPage from './view/cart/CartPage';
+import { store } from './state';
+import { CartPage, ProductsPage, GlobalStyle } from './view';
 
 library.add(faShoppingCart);
 library.add(faTrash);

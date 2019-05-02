@@ -1,4 +1,4 @@
-import { TIMER } from '../actionTypes';
+import { actionTypes } from '..';
 
 const minute = 60;
 
@@ -9,13 +9,13 @@ const initialState = {
 
 export const timerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TIMER.START_TIMER:
+    case actionTypes.TIMER.START_TIMER:
       return { remainingTime: minute * 15, interval: action.interval };
 
-    case TIMER.DECREASE_TIMER:
+    case actionTypes.TIMER.DECREASE_TIMER:
       return { ...state, remainingTime: state.remainingTime - 1 };
 
-    case TIMER.END_TIMER:
+    case actionTypes.TIMER.END_TIMER:
       return { remainingTime: null, interval: null };
 
     default:

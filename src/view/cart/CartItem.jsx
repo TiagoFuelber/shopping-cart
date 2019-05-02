@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import StyledCartItem from './StyledCartItem';
 import * as cartActions from '../../state/cart/actionCreators';
-import Modal from '../ui/modal/Modal';
-import Button from '../ui/buttons/Button';
+import StyledCartItem from './StyledCartItem';
 import StyledConfirmModal from './StyledConfirmModal';
-import Cart from '../../domain/Cart';
-import Product from '../../domain/Product';
+import { Modal, Button } from '..';
+import { Cart, Product } from '../../domain';
+
 
 class CartItem extends Component {
   state = {

@@ -2,22 +2,26 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Pagination from 'react-js-pagination';
-import StyledBasePage from '../ui/styles/StyledBasePage';
-import Container from '../ui/Container';
-import * as productActions from '../../state/products/actionCreators';
-import * as categoriesActions from '../../state/categories/actionCreators';
-import * as cartActions from '../../state/cart/actionCreators';
-import * as timerActions from '../../state/timer/actionCreators';
-import ProductCard from './ProductCard';
-import StyledProductsContainer from './StyledProductsContainer';
-import StyledPagination from '../ui/StyledPagination';
-import Header from '../ui/header/Header';
-import Button from '../ui/buttons/Button';
-import StyledFilters from './StyledFilters';
-import StyledProductListHeader from './StyledProductListHeader';
-import Product from '../../domain/Product';
-import Cart from '../../domain/Cart';
-import Category from '../../domain/Category';
+import { Product, Cart, Category } from '../../domain';
+
+import {
+  productActions,
+  categoriesActions,
+  cartActions,
+  timerActions
+} from '../../state';
+
+import {
+  StyledProductListHeader,
+  StyledProductsContainer,
+  StyledPagination,
+  StyledBasePage,
+  StyledFilters,
+  ProductCard,
+  Container,
+  Header,
+  Button
+} from '..';
 
 class ProductsPage extends Component {
   state = {
@@ -142,9 +146,9 @@ ProductsPage.propTypes = {
   addItemToCart: PropTypes.func.isRequired,
   filterByCategory: PropTypes.func.isRequired,
   startTimer: PropTypes.func.isRequired,
-  products: PropTypes.arrayOf(Product).isRequired,
+  products: PropTypes.arrayOf(PropTypes.instanceOf(Product)).isRequired,
   cart: PropTypes.instanceOf(Cart).isRequired,
-  categories: PropTypes.arrayOf(Category).isRequired
+  categories: PropTypes.arrayOf(PropTypes.instanceOf(Category)).isRequired
 };
 
 const mapStateToProps = ({

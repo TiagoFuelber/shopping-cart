@@ -1,21 +1,23 @@
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import StyledBasePage from '../ui/styles/StyledBasePage';
-import Container from '../ui/Container';
-import Header from '../ui/header/Header';
-import CartItem from './CartItem';
-import getCartTotalPrice from '../../application/getCartTotalPrice';
-import toReais from '../../services/toReais';
-import StyledCartTotal from './StyledCartTotal';
-import Button from '../ui/buttons/Button';
-import Modal from '../ui/modal/Modal';
-import { Blue } from '../ui/styles/constants';
-import StyledSuccessCheckout from './StyledSuccessCheckout';
-import * as cartActions from '../../state/cart/actionCreators';
-import Cart from '../../domain/Cart';
+import { getCartTotalPrice } from '../../application';
+import { toReais } from '../../services';
+import { cartActions } from '../../state';
+import { Cart } from '../../domain';
+import {
+  StyledSuccessCheckout,
+  StyledCartTotal,
+  StyledBasePage,
+  Container,
+  constants,
+  CartItem,
+  Button,
+  Header,
+  Modal
+} from '..';
 
 const EmptyCartMessage = () =>
   (
@@ -81,7 +83,7 @@ class CartPage extends Component {
             {successModalIsOpen && (
               <Modal onClose={this.closeModal}>
                 <StyledSuccessCheckout>
-                  <FontAwesomeIcon icon="check-circle" size="6x" color={Blue} />
+                  <FontAwesomeIcon icon="check-circle" size="6x" color={constants.Blue} />
                   <h1>Successful checkout!</h1>
                   <Button onClick={this.closeModal}>Close</Button>
                 </StyledSuccessCheckout>

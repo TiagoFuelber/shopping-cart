@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledProductCard from './StyledProductCard';
-import Button from '../ui/buttons/Button';
-import toReais from '../../services/toReais';
-import Product from '../../domain/Product';
+import { StyledProductCard, Button } from '..';
+import { toReais } from '../../services';
+import { Product } from '../../domain';
 
 const ProductCard = ({ product, onAddToCart }) =>
   (

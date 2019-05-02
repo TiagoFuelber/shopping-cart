@@ -1,5 +1,5 @@
 import Styled from 'styled-components';
-import Button from '../ui/buttons/Button';
+import { Button } from '..';
 
 export default Styled.div`
 
