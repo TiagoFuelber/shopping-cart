@@ -1,23 +1,33 @@
 import { PRODUCTS } from '../actionTypes';
 import container from '../../container';
 
-const getMappedProducts = () =>
-  container.getProducts();
-
 export const getProducts = dispatch =>
   () =>
-    dispatch({
-      type: PRODUCTS.GET_PRODUCTS,
-      products: getMappedProducts()
+    new Promise(async (resolve) => {
+      const products = await container.getProducts();
+
+      dispatch({
+        type: PRODUCTS.GET_PRODUCTS,
+        products
+      });
+
+      resolve();
     });
 
 export const filterByCategory = dispatch =>
   categoryId =>
     () =>
-      dispatch({
-        type: PRODUCTS.FILTER_BY_CATEGORY,
-        products: getMappedProducts().filter(product =>
-          (categoryId !== null ? product.idCategory === categoryId : product))
+      new Promise(async (resolve) => {
+        const products = await container.getProducts();
+
+        dispatch({
+          type: PRODUCTS.FILTER_BY_CATEGORY,
+          products: products
+            .filter(product =>
+              (categoryId !== null ? product.idCategory === categoryId : product))
+        });
+
+        resolve();
       });
 
 export default { getProducts, filterByCategory };

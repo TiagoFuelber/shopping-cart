@@ -23,17 +23,16 @@ class ProductsPage extends Component {
     activeFilter: null
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { getProducts, getCategories } = this.props;
-    getProducts();
-    getCategories();
-    setTimeout(() => {
-      this.showProductsFromPage(1);
-    }, 0);
+
+    await Promise.all([getProducts(), getCategories()]);
+
+    this.showProductsFromPage(1);
   }
 
   handlePageChange = (activePage) => {
-    this.setState({ activePage }, () => 
+    this.setState({ activePage }, () =>
       this.showProductsFromPage(this.state.activePage));
   };
 
@@ -50,15 +49,15 @@ class ProductsPage extends Component {
     });
   };
 
-  filterByCategoryAndUpdateList = (categoryId = null) => () => {
-    const { filterByCategory } = this.props;
+  filterByCategoryAndUpdateList = (categoryId = null) =>
+    async () => {
+      const { filterByCategory } = this.props;
 
-    filterByCategory(categoryId)();
-    setTimeout(() => {
+      await filterByCategory(categoryId)();
+
       this.showProductsFromPage(1);
       this.setState({ activeFilter: categoryId });
-    }, 0);
-  };
+    };
 
   onAddToCart = product =>
     () => {
@@ -72,7 +71,12 @@ class ProductsPage extends Component {
   render() {
     const { products, categories } = this.props;
 
-    const { activePage, paginatedProducts, itemsCountPerPage, activeFilter } = this.state;
+    const {
+      activePage,
+      paginatedProducts,
+      itemsCountPerPage,
+      activeFilter
+    } = this.state;
 
     return (
       <Fragment>
@@ -84,31 +88,33 @@ class ProductsPage extends Component {
               <StyledFilters>
                 <Button
                   className={activeFilter === null && 'active'}
-                  onClick={this.filterByCategoryAndUpdateList(null)}
+                  onClick={this.filterByCategoryAndUpdateList()}
                 >
                   Todos
                 </Button>
-                {categories &&
-                  categories.map(category => (
-                    <Button
-                      key={category.id}
-                      onClick={this.filterByCategoryAndUpdateList(category.id)}
-                      className={activeFilter === category.id && 'active'}
-                    >
-                      {category.name}
-                    </Button>
-                  ))}
+                {categories
+                  && categories.map(category =>
+                    (
+                      <Button
+                        key={category.id}
+                        onClick={this.filterByCategoryAndUpdateList(category.id)}
+                        className={activeFilter === category.id && 'active'}
+                      >
+                        {category.name}
+                      </Button>
+                    ))}
               </StyledFilters>
             </StyledProductListHeader>
             <StyledProductsContainer>
-              {paginatedProducts &&
-                paginatedProducts.map(product => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={this.onAddToCart(product)}
-                  />
-                ))}
+              {paginatedProducts
+                && paginatedProducts.map(product =>
+                  (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onAddToCart={this.onAddToCart(product)}
+                    />
+                  ))}
             </StyledProductsContainer>
             <StyledPagination>
               <Pagination
@@ -133,13 +139,14 @@ const mapStateToProps = ({
     products, categories, cart, timer
   });
 
-const mapDispatchToProps = dispatch => ({
-  getProducts: productActions.getProducts(dispatch),
-  getCategories: categoriesActions.getCategories(dispatch),
-  addItemToCart: cartActions.addItemToCart(dispatch),
-  filterByCategory: productActions.filterByCategory(dispatch),
-  startTimer: timerActions.startTimer(dispatch, cartActions.clearCart(dispatch))
-});
+const mapDispatchToProps = dispatch =>
+  ({
+    getProducts: productActions.getProducts(dispatch),
+    getCategories: categoriesActions.getCategories(dispatch),
+    addItemToCart: cartActions.addItemToCart(dispatch),
+    filterByCategory: productActions.filterByCategory(dispatch),
+    startTimer: timerActions.startTimer(dispatch, cartActions.clearCart(dispatch))
+  });
 
 export default connect(
   mapStateToProps,

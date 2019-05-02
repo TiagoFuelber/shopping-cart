@@ -1,6 +1,9 @@
 import * as Product from '../domain/Product';
 
 export default ({ repository }) =>
-  () =>
-    repository.getProducts().map(product =>
-      Product.create(product));
+  async () => {
+    const products = await repository.getProducts();
+    return products
+      .map(product =>
+        Product.create(product));
+  };

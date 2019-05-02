@@ -382,10 +382,16 @@ const categories = [
 ];
 
 const getProducts = () =>
-  products;
+  new Promise((resolve) => {
+    setTimeout(() =>
+      resolve(products), 150);
+  });
 
 const getCategories = () =>
-  categories;
+  new Promise((resolve) => {
+    setTimeout(() =>
+      resolve(categories), 150);
+  });
 
 const ProductsRepository = {
   getProducts,
