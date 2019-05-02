@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StyledCartSummary from './StyledCartSummary';
+import Cart from '../../../domain/Cart';
 
 const CartSumary = ({ cart }) =>
   (
@@ -22,6 +24,10 @@ const CartSumary = ({ cart }) =>
       )}
     </StyledCartSummary>
   );
+
+CartSumary.propTypes = {
+  cart: PropTypes.instanceOf(Cart).isRequired
+};
 
 const mapStateToProps = ({ cart }) =>
   ({ cart });

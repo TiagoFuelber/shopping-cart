@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import StyledHeader from './StyledHeader';
 import CartIcon from '../cartIcon/CartIcon';
 import NoStyleRouterLink from '../NoStyleRouterLink';
 import secondsToMinutes from '../../../services/TimeService';
+import Cart from '../../../domain/Cart';
 
 const Header = ({ cart, timer }) =>
   (
@@ -22,6 +24,14 @@ const Header = ({ cart, timer }) =>
       </NoStyleRouterLink>
     </StyledHeader>
   );
+
+Header.propTypes = {
+  cart: PropTypes.instanceOf(Cart).isRequired,
+  timer: PropTypes.shape({
+    remainingTime: PropTypes.number,
+    interval: PropTypes.func
+  }).isRequired
+};
 
 const mapStateToProps = ({ cart, timer }) =>
   ({ cart, timer });

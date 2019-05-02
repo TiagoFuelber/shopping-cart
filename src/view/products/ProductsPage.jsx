@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Pagination from 'react-js-pagination';
 import StyledBasePage from '../ui/styles/StyledBasePage';
 import Container from '../ui/Container';
@@ -14,6 +15,9 @@ import Header from '../ui/header/Header';
 import Button from '../ui/buttons/Button';
 import StyledFilters from './StyledFilters';
 import StyledProductListHeader from './StyledProductListHeader';
+import Product from '../../domain/Product';
+import Cart from '../../domain/Cart';
+import Category from '../../domain/Category';
 
 class ProductsPage extends Component {
   state = {
@@ -131,6 +135,17 @@ class ProductsPage extends Component {
     );
   }
 }
+
+ProductsPage.propTypes = {
+  getProducts: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
+  filterByCategory: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  products: PropTypes.arrayOf(Product).isRequired,
+  cart: PropTypes.instanceOf(Cart).isRequired,
+  categories: PropTypes.arrayOf(Category).isRequired
+};
 
 const mapStateToProps = ({
   products, categories, cart, timer

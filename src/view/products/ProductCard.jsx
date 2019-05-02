@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyledProductCard from './StyledProductCard';
 import Button from '../ui/buttons/Button';
 import toReais from '../../services/toReais';
+import Product from '../../domain/Product';
 
 const ProductCard = ({ product, onAddToCart }) =>
   (
@@ -14,5 +16,10 @@ const ProductCard = ({ product, onAddToCart }) =>
       </Button>
     </StyledProductCard>
   );
+
+ProductCard.propTypes = {
+  product: PropTypes.instanceOf(Product).isRequired,
+  onAddToCart: PropTypes.func.isRequired
+};
 
 export default ProductCard;

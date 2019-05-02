@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StyledCartItem from './StyledCartItem';
 import * as cartActions from '../../state/cart/actionCreators';
 import Modal from '../ui/modal/Modal';
 import Button from '../ui/buttons/Button';
 import StyledConfirmModal from './StyledConfirmModal';
+import Cart from '../../domain/Cart';
+import Product from '../../domain/Product';
 
 class CartItem extends Component {
   state = {
@@ -29,6 +32,7 @@ class CartItem extends Component {
 
   confirmModal = () => {
     const { history, decreaseQuantity, item } = this.props;
+
     this.closeModal();
     decreaseQuantity(item)();
     history.push('/');
@@ -64,6 +68,17 @@ class CartItem extends Component {
     );
   }
 }
+
+CartItem.propTypes = {
+  decreaseQuantity: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
+  cart: PropTypes.instanceOf(Cart).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+  item: PropTypes.instanceOf(Product).isRequired
+};
 
 const mapStateToProps = ({ cart }) =>
   ({ cart });

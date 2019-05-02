@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StyledBasePage from '../ui/styles/StyledBasePage';
 import Container from '../ui/Container';
@@ -14,6 +15,7 @@ import Modal from '../ui/modal/Modal';
 import { Blue } from '../ui/styles/constants';
 import StyledSuccessCheckout from './StyledSuccessCheckout';
 import * as cartActions from '../../state/cart/actionCreators';
+import Cart from '../../domain/Cart';
 
 const EmptyCartMessage = () =>
   (
@@ -91,6 +93,14 @@ class CartPage extends Component {
     );
   }
 }
+
+CartPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+  clearCart: PropTypes.func.isRequired,
+  cart: PropTypes.instanceOf(Cart).isRequired
+};
 
 const mapStateToProps = ({ cart }) =>
   ({ cart });

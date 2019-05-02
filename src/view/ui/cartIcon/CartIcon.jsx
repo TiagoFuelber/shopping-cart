@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StyledCartIcon from './StyledCartIcon';
 import CartSumary from './CartSummary';
 
-export default ({ quantity }) =>
+const CartIcon = ({ quantity }) =>
   (
     <StyledCartIcon>
       <div className="quantity">{quantity}</div>
@@ -11,3 +12,9 @@ export default ({ quantity }) =>
       <CartSumary />
     </StyledCartIcon>
   );
+
+CartIcon.propTypes = {
+  quantity: PropTypes.number.isRequired
+};
+
+export default CartIcon;
